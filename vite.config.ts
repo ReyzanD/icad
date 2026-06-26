@@ -27,6 +27,9 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
+            script: {
+                propsDestructure: false,
+            },
         }),
         wayfinder({
             formVariants: true,
