@@ -28,7 +28,7 @@ export default defineConfig({
                 },
             },
             script: {
-                propsDestructure: false,
+                definePropsLoose: true,
             },
         }),
         wayfinder({
