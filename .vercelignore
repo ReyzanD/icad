@@ -7,11 +7,9 @@
 /.gitattributes
 /.prettierignore
 /.prettierrc
-/.phpunit.cache
 /node_modules
 /tests
 /database
-/storage
 /coverage
 /phpunit.xml
 /phpstan.neon
@@ -19,5 +17,3 @@
 /pnpm-workspace.yaml
 /eslint.config.js
 /tsconfig.json
-/composer.json
-/composer.lock
