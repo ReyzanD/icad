@@ -6,29 +6,31 @@ import laravel from 'laravel-vite-plugin';
 import { bunny } from 'laravel-vite-plugin/fonts';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.ts'],
-            refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
-        }),
-        inertia(),
-        tailwindcss(),
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
-                },
+const plugins = [
+    laravel({
+        input: ['resources/css/app.css', 'resources/js/app.ts'],
+        refresh: true,
+        fonts: [
+            bunny('Instrument Sans', {
+                weights: [400, 500, 600],
+            }),
+        ],
+    }),
+    inertia(),
+    tailwindcss(),
+    vue({
+        template: {
+            transformAssetUrls: {
+                base: null,
+                includeAbsolute: false,
             },
-        }),
-        wayfinder({
-            formVariants: true,
-        }),
-    ],
-});
+        },
+    }),
+];
+
+// wayfinder requires PHP at build time; not available on Vercel
+if (!process.env.VERCEL) {
+    plugins.push(wayfinder({ formVariants: true }));
+}
+
+export default defineConfig({ plugins });
