@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import { Head } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import { FileText, Download, Calendar } from '@lucide/vue'
+import { useReveal } from '@/composables/useReveal'
+import PageHero from '@/components/icad/PageHero.vue'
 
 const activeCategory = ref('All')
 
@@ -60,21 +62,20 @@ const filteredNews = computed(() =>
     ? newsItems
     : newsItems.filter(item => item.category === activeCategory.value)
 )
+
+const { target: newsEl, isRevealed: newsRevealed } = useReveal()
+const { target: resourcesEl, isRevealed: resourcesRevealed } = useReveal()
 </script>
 
 <template>
   <Head title="News & Resources" />
 
-  <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24">
-    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-white sm:text-5xl">News & Resources</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-        Stay informed with the latest community news, trade updates, and knowledge resources
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="News & Resources"
+    subtitle="Stay informed with the latest community news, trade updates, and knowledge resources"
+  />
 
-  <section class="bg-white py-20">
+  <section ref="newsEl" class="bg-white py-20" :class="{ revealed: newsRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-8 flex flex-wrap items-center gap-2">
         <button
@@ -111,7 +112,7 @@ const filteredNews = computed(() =>
     </div>
   </section>
 
-  <section class="bg-gray-50 py-20">
+  <section ref="resourcesEl" class="bg-gray-50 py-20" :class="{ revealed: resourcesRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Knowledge Bank" subtitle="Essential resources for the Indonesian community in the UAE." />
       <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

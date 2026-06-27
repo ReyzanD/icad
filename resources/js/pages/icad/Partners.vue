@@ -2,6 +2,8 @@
 import { Head, Link } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import { Award, Heart, Handshake, ArrowRight, Building } from '@lucide/vue'
+import { useReveal } from '@/composables/useReveal'
+import PageHero from '@/components/icad/PageHero.vue'
 
 const foundationPartners = [
   { name: 'Abu Dhabi Chamber of Commerce', tier: 'Foundation' },
@@ -29,21 +31,21 @@ const communityPartners = [
   { name: 'Indonesian Cuisine Collective', tier: 'Community' },
   { name: 'Pertiwi Women\'s Association', tier: 'Community' },
 ]
+
+const { target: foundationEl, isRevealed: foundationRevealed } = useReveal()
+const { target: corporateEl, isRevealed: corporateRevealed } = useReveal()
+const { target: communityEl, isRevealed: communityRevealed } = useReveal()
 </script>
 
 <template>
   <Head title="Partners & Sponsors" />
 
-  <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24">
-    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-white sm:text-5xl">Partners & Sponsors</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-        Together, we build a stronger community. Meet the organizations that support ICAD.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Partners & Sponsors"
+    subtitle="Together, we build a stronger community. Meet the organizations that support ICAD."
+  />
 
-  <section class="bg-white py-20">
+  <section ref="foundationEl" class="bg-white py-20" :class="{ revealed: foundationRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         title="Foundation Partners"
@@ -67,7 +69,7 @@ const communityPartners = [
     </div>
   </section>
 
-  <section class="bg-gray-50 py-20">
+  <section ref="corporateEl" class="bg-gray-50 py-20" :class="{ revealed: corporateRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Corporate Partners" />
       <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -88,7 +90,7 @@ const communityPartners = [
     </div>
   </section>
 
-  <section class="bg-white py-20">
+  <section ref="communityEl" class="bg-white py-20" :class="{ revealed: communityRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Community Partners" subtitle="Working together to serve the Indonesian community." />
       <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

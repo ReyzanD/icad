@@ -4,8 +4,13 @@ import { Head } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import EventCard from '@/components/icad/EventCard.vue'
 import { Calendar, Music, Briefcase, Heart } from '@lucide/vue'
+import { useReveal } from '@/composables/useReveal'
+import PageHero from '@/components/icad/PageHero.vue'
 
 const activeCategory = ref('All Events')
+
+const { target: eventsEl, isRevealed: eventsRevealed } = useReveal()
+const { target: pastEl, isRevealed: pastRevealed } = useReveal()
 
 const categories = [
   { name: 'All Events', icon: Calendar },
@@ -106,27 +111,33 @@ const pastEvents = [
 <template>
   <Head title="Events" />
 
-  <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24">
-    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-white sm:text-5xl">Events</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-        From business networking to cultural celebrations — there is always something happening at ICAD
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Events"
+    subtitle="From business networking to cultural celebrations — there is always something happening at ICAD"
+  />
 
-  <section class="bg-white py-20">
+  <div class="relative z-10 mx-auto -mt-12 mb-12 flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-2 rounded-lg border bg-white px-4 py-2 shadow-sm">
+      <Calendar class="h-4 w-4 text-[#CE1126]" />
+      <span class="text-sm text-gray-600">Upcoming events listed below</span>
+    </div>
+  </div>
+
+  <section ref="eventsEl" class="bg-white py-20" :class="{ revealed: eventsRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Upcoming Events" />
       <div class="mb-8 flex flex-wrap items-center gap-2">
         <button
-          v-for="cat in categories"
+          v-for="(cat, index) in categories"
           :key="cat.name"
           @click="activeCategory = cat.name"
           class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors"
-          :class="activeCategory === cat.name
-            ? 'bg-[#CE1126] text-white border-[#CE1126]'
-            : 'text-gray-700 hover:bg-gray-100'"
+          :class="[
+            activeCategory === cat.name
+              ? 'bg-[#CE1126] text-white border-[#CE1126]'
+              : 'text-gray-700 hover:bg-gray-100',
+            'reveal-delay-' + (index + 1)
+          ]"
         >
           <component :is="cat.icon" class="h-4 w-4" />
           {{ cat.name }}
@@ -138,7 +149,7 @@ const pastEvents = [
     </div>
   </section>
 
-  <section class="bg-gray-50 py-20">
+  <section ref="pastEl" class="bg-gray-50 py-20" :class="{ revealed: pastRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Past Events" subtitle="Highlights from our recent community activities." />
       <div class="mt-8 grid gap-6">

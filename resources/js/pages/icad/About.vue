@@ -2,6 +2,8 @@
 import { Head } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import StatCard from '@/components/icad/StatCard.vue'
+import { useReveal } from '@/composables/useReveal'
+import PageHero from '@/components/icad/PageHero.vue'
 
 const teamMembers = [
   { name: 'Dr. Amanda Wijaya', role: 'Chairperson', org: 'PT Global Investama' },
@@ -30,21 +32,22 @@ const values = [
     desc: 'Celebrating and preserving Indonesian culture, traditions, and language in the UAE.',
   },
 ]
+
+const { target: missionEl, isRevealed: missionRevealed } = useReveal()
+const { target: valuesEl, isRevealed: valuesRevealed } = useReveal()
+const { target: teamEl, isRevealed: teamRevealed } = useReveal()
+const { target: statsEl, isRevealed: statsRevealed } = useReveal()
 </script>
 
 <template>
   <Head title="About Us" />
 
-  <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24">
-    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-white sm:text-5xl">About ICAD</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-        The Indonesian Community Abu Dhabi — serving our community since 2015
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="About ICAD"
+    subtitle="The Indonesian Community Abu Dhabi — serving our community since 2015"
+  />
 
-  <section class="bg-white py-20">
+  <section ref="missionEl" class="bg-white py-20" :class="{ revealed: missionRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid gap-12 lg:grid-cols-2">
         <div>
@@ -96,7 +99,7 @@ const values = [
     </div>
   </section>
 
-  <section class="bg-gray-50 py-20">
+  <section ref="valuesEl" class="bg-gray-50 py-20" :class="{ revealed: valuesRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Our Values" centered />
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -112,7 +115,7 @@ const values = [
     </div>
   </section>
 
-  <section class="bg-white py-20">
+  <section ref="teamEl" class="bg-white py-20" :class="{ revealed: teamRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Our Leadership Team" centered />
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -132,7 +135,7 @@ const values = [
     </div>
   </section>
 
-  <section class="bg-gray-50 py-16">
+  <section ref="statsEl" class="bg-gray-50 py-16" :class="{ revealed: statsRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard number="2015" label="Founded" />

@@ -2,6 +2,8 @@
 import { Head } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import { MapPin, Phone, Mail, Clock, Send } from '@lucide/vue'
+import { useReveal } from '@/composables/useReveal'
+import PageHero from '@/components/icad/PageHero.vue'
 
 const contactInfo = [
   {
@@ -31,21 +33,21 @@ const formFields = [
   { name: 'email', label: 'Email Address', type: 'email' },
   { name: 'subject', label: 'Subject', type: 'text' },
 ]
+
+const { target: infoEl, isRevealed: infoRevealed } = useReveal()
+const { target: formEl, isRevealed: formRevealed } = useReveal()
+const { target: mapEl, isRevealed: mapRevealed } = useReveal()
 </script>
 
 <template>
   <Head title="Contact" />
 
-  <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24">
-    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-white sm:text-5xl">Contact Us</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-        We would love to hear from you. Get in touch with ICAD.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Contact Us"
+    subtitle="We would love to hear from you. Get in touch with ICAD."
+  />
 
-  <section class="bg-white py-20">
+  <section ref="infoEl" class="bg-white py-20" :class="{ revealed: infoRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid gap-12 lg:grid-cols-2">
         <div>
@@ -162,7 +164,7 @@ const formFields = [
     </div>
   </section>
 
-  <section class="h-96 w-full">
+  <section ref="mapEl" class="h-96 w-full" :class="{ revealed: mapRevealed }">
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116121.11970873115!2d54.28514418671875!3d24.4763883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e440f7234f8f7%3A0x7b1c3b8b8b8b8b8b!2sAbu%20Dhabi%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sae!4v1"
       width="100%"

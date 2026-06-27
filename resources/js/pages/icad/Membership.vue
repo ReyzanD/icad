@@ -2,6 +2,8 @@
 import { Head, Link } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import { Check, ArrowRight, Star, Building, Heart } from '@lucide/vue'
+import { useReveal } from '@/composables/useReveal'
+import PageHero from '@/components/icad/PageHero.vue'
 
 const memberBenefits = [
   'Access to exclusive business networking events',
@@ -67,21 +69,21 @@ const memberList = [
   { name: 'Rempah Ratus Catering', rep: 'Ibu Sari', type: 'Individual' },
   { name: 'Archipelago Arts Studio', rep: 'Putra Nusantara', type: 'Individual' },
 ]
+
+const { target: benefitsEl, isRevealed: benefitsRevealed } = useReveal()
+const { target: plansEl, isRevealed: plansRevealed } = useReveal()
+const { target: directoryEl, isRevealed: directoryRevealed } = useReveal()
 </script>
 
 <template>
   <Head title="Membership" />
 
-  <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24">
-    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-white sm:text-5xl">Membership</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-        Join ICAD and become part of the premier Indonesian community in Abu Dhabi
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Membership"
+    subtitle="Join ICAD and become part of the premier Indonesian community in Abu Dhabi"
+  />
 
-  <section class="bg-white py-20">
+  <section ref="benefitsEl" class="bg-white py-20" :class="{ revealed: benefitsRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         title="Why Join ICAD?"
@@ -100,7 +102,7 @@ const memberList = [
     </div>
   </section>
 
-  <section class="bg-gray-50 py-20">
+  <section ref="plansEl" class="bg-gray-50 py-20" :class="{ revealed: plansRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Choose Your Membership Plan" centered />
       <div class="mt-10 grid gap-8 lg:grid-cols-3">
@@ -142,7 +144,7 @@ const memberList = [
     </div>
   </section>
 
-  <section class="bg-white py-20">
+  <section ref="directoryEl" class="bg-white py-20" :class="{ revealed: directoryRevealed }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Member Directory" subtitle="Meet our community of professionals and businesses." />
       <div class="overflow-hidden rounded-xl border">
