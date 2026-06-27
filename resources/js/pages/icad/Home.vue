@@ -3,7 +3,7 @@ import { Head, Link } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import EventCard from '@/components/icad/EventCard.vue'
 import StatCard from '@/components/icad/StatCard.vue'
-import { ArrowRight, Users, Briefcase, Handshake, Calendar } from '@lucide/vue'
+import { ArrowRight, Users, Briefcase, Handshake, Calendar, Mail } from '@lucide/vue'
 
 const upcomingEvents = [
   {
@@ -37,6 +37,15 @@ const stats = [
   { number: '50+', label: 'Partner Organizations' },
   { number: '30+', label: 'Annual Events' },
   { number: '10+', label: 'Years Serving UAE' },
+]
+
+const partners = [
+  { name: 'Embassy of Indonesia', desc: 'Embassy of the Republic of Indonesia' },
+  { name: 'KADIN UAE', desc: 'Indonesian Chamber of Commerce UAE' },
+  { name: 'Bank Mandiri', desc: 'PT Bank Mandiri (Persero) Tbk' },
+  { name: 'Garuda Indonesia', desc: 'Flag Carrier of Indonesia' },
+  { name: 'Indonesian School Abu Dhabi', desc: 'Sekolah Indonesia Abu Dhabi' },
+  { name: 'BNI', desc: 'PT Bank Negara Indonesia (Persero) Tbk' },
 ]
 </script>
 
@@ -115,6 +124,31 @@ const stats = [
   <section class="bg-white py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
+        title="Our Partners"
+        subtitle="ICAD works with leading Indonesian and UAE organizations to serve our community."
+        centered
+      />
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          v-for="partner in partners"
+          :key="partner.name"
+          class="flex items-center gap-4 rounded-xl border bg-white p-6 shadow-sm transition-all hover:shadow-md"
+        >
+          <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#CE1126]/10 text-[#CE1126] font-bold text-lg">
+            {{ partner.name.charAt(0) }}
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900">{{ partner.name }}</p>
+            <p class="text-sm text-gray-500">{{ partner.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
         title="Our Focus Areas"
         subtitle="ICAD serves the Indonesian community through three key pillars."
         centered
@@ -146,6 +180,32 @@ const stats = [
           <p class="mt-2 text-sm leading-relaxed text-gray-600">
             Facilitating Indonesia-UAE trade relations, investment opportunities, and bilateral economic cooperation.
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-[#CE1126]/20 p-8 sm:p-12">
+        <div class="mx-auto max-w-xl text-center">
+          <Mail class="mx-auto mb-4 h-8 w-8 text-[#D4A84B]" />
+          <h2 class="text-2xl font-bold text-white sm:text-3xl">Stay Connected</h2>
+          <p class="mt-2 text-gray-300">Subscribe to our newsletter for the latest events, news, and community updates.</p>
+          <form class="mt-6 flex flex-col gap-3 sm:flex-row" @submit.prevent>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder-gray-400 backdrop-blur-sm focus:border-[#D4A84B] focus:outline-none focus:ring-1 focus:ring-[#D4A84B]"
+            />
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#D4A84B] px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-yellow-400"
+            >
+              Subscribe
+              <ArrowRight class="h-4 w-4" />
+            </button>
+          </form>
         </div>
       </div>
     </div>
