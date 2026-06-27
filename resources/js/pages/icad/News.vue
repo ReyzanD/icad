@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import { Head } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
-import { FileText, TrendingUp, BookOpen, Download } from '@lucide/vue'
+import { FileText, Download, Calendar } from '@lucide/vue'
+
+const activeCategory = ref('All')
+
+const newsCategories = ['All', 'Community News', 'Trade Update', 'Economic Update']
 
 const newsItems = [
   {
@@ -49,6 +54,12 @@ const resources = [
   { title: 'ICAD Member Benefits Handbook', type: 'PDF', size: '1.8 MB' },
   { title: 'Guide to Indonesian Schools in the UAE', type: 'PDF', size: '2.2 MB' },
 ]
+
+const filteredNews = computed(() =>
+  activeCategory.value === 'All'
+    ? newsItems
+    : newsItems.filter(item => item.category === activeCategory.value)
+)
 </script>
 
 <template>
@@ -65,19 +76,22 @@ const resources = [
 
   <section class="bg-white py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 flex items-center gap-2">
+      <div class="mb-8 flex flex-wrap items-center gap-2">
         <button
-          v-for="cat in ['All', 'Community News', 'Trade Update', 'Economic Update']"
+          v-for="cat in newsCategories"
           :key="cat"
-          class="rounded-full border px-4 py-1.5 text-sm font-medium transition-colors hover:bg-gray-100"
-          :class="cat === 'All' ? 'bg-[#CE1126] text-white border-[#CE1126]' : 'text-gray-700'"
+          @click="activeCategory = cat"
+          class="rounded-full border px-4 py-1.5 text-sm font-medium transition-colors"
+          :class="activeCategory === cat
+            ? 'bg-[#CE1126] text-white border-[#CE1126]'
+            : 'text-gray-700 hover:bg-gray-100'"
         >
           {{ cat }}
         </button>
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <article
-          v-for="item in newsItems"
+          v-for="item in filteredNews"
           :key="item.title"
           class="group rounded-xl border bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
         >

@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import { Head } from '@inertiajs/vue3'
 import SectionHeading from '@/components/icad/SectionHeading.vue'
 import EventCard from '@/components/icad/EventCard.vue'
 import { Calendar, Music, Briefcase, Heart } from '@lucide/vue'
 
+const activeCategory = ref('All Events')
+
 const categories = [
-  { name: 'All Events', icon: Calendar, active: true },
+  { name: 'All Events', icon: Calendar },
   { name: 'Business', icon: Briefcase },
   { name: 'Cultural', icon: Music },
   { name: 'Community', icon: Heart },
@@ -19,6 +22,7 @@ const events = [
     location: 'Abu Dhabi Corniche',
     type: 'Cultural',
     description: 'A grand celebration featuring traditional performances, flag ceremony, culinary fair, and family activities.',
+    registerLink: 'https://forms.google.com/independence-day-2026',
   },
   {
     title: 'Q3 Business Networking Mixer',
@@ -27,6 +31,7 @@ const events = [
     location: 'Downtown Abu Dhabi',
     type: 'Business',
     description: 'Connect with fellow Indonesian professionals, entrepreneurs, and business leaders in Abu Dhabi.',
+    registerLink: 'https://forms.google.com/q3-networking-2026',
   },
   {
     title: 'Batik Day Workshop & Fashion Show',
@@ -35,6 +40,7 @@ const events = [
     location: 'Cultural Centre, Abu Dhabi',
     type: 'Cultural',
     description: 'Celebrate Batik Day with a workshop on batik history and techniques, followed by a fashion show.',
+    registerLink: 'https://forms.google.com/batik-day-2026',
   },
   {
     title: 'Eid Al-Fitr Gathering',
@@ -51,6 +57,7 @@ const events = [
     location: 'Abu Dhabi Chamber of Commerce',
     type: 'Business',
     description: 'A forum exploring trade and investment opportunities between Indonesia and the UAE.',
+    registerLink: 'https://forms.google.com/trade-forum-2026',
   },
   {
     title: 'Year-End Community Gala',
@@ -61,6 +68,12 @@ const events = [
     description: 'Annual gala dinner celebrating the community with performances, awards, and cultural showcases.',
   },
 ]
+
+const filteredEvents = computed(() =>
+  activeCategory.value === 'All Events'
+    ? events
+    : events.filter(e => e.type === activeCategory.value)
+)
 
 const pastEvents = [
   {
@@ -105,8 +118,22 @@ const pastEvents = [
   <section class="bg-white py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading title="Upcoming Events" />
+      <div class="mb-8 flex flex-wrap items-center gap-2">
+        <button
+          v-for="cat in categories"
+          :key="cat.name"
+          @click="activeCategory = cat.name"
+          class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors"
+          :class="activeCategory === cat.name
+            ? 'bg-[#CE1126] text-white border-[#CE1126]'
+            : 'text-gray-700 hover:bg-gray-100'"
+        >
+          <component :is="cat.icon" class="h-4 w-4" />
+          {{ cat.name }}
+        </button>
+      </div>
       <div class="mt-8 grid gap-6">
-        <EventCard v-for="event in events" :key="event.title" v-bind="event" />
+        <EventCard v-for="event in filteredEvents" :key="event.title" v-bind="event" />
       </div>
     </div>
   </section>

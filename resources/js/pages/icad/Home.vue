@@ -13,6 +13,7 @@ const upcomingEvents = [
     location: 'Abu Dhabi',
     type: 'Cultural',
     description: 'Join us for a grand celebration of Indonesia\'s Independence Day with traditional performances, food, and community gatherings.',
+    registerLink: 'https://forms.google.com/independence-day-2026',
   },
   {
     title: 'Business Networking Mixer — Q3 2026',
@@ -21,6 +22,7 @@ const upcomingEvents = [
     location: 'Downtown Abu Dhabi',
     type: 'Business',
     description: 'Connect with Indonesian professionals and business leaders in Abu Dhabi. Expand your network and explore new opportunities.',
+    registerLink: 'https://forms.google.com/q3-networking-2026',
   },
   {
     title: 'Batik Day Workshop',
@@ -29,6 +31,7 @@ const upcomingEvents = [
     location: 'Cultural Centre, Abu Dhabi',
     type: 'Cultural',
     description: 'Celebrate Batik Day with a hands-on workshop. Learn about the history and art of Indonesian batik.',
+    registerLink: 'https://forms.google.com/batik-day-2026',
   },
 ]
 
