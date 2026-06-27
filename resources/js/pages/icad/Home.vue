@@ -55,9 +55,16 @@ const partners = [
 <template>
   <Head title="Home" />
 
-  <section class="relative flex min-h-[80vh] items-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-[#CE1126]/30">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+  <section class="relative flex min-h-[80vh] items-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1920&q=80"
+        alt="Abu Dhabi skyline"
+        class="h-full w-full object-cover"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-gray-900/60"></div>
+    </div>
     <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
         <span class="inline-block rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-sm">
