@@ -44,6 +44,9 @@ if ($uri !== '/' && file_exists($file = $publicPath . $uri)) {
     exit;
 }
 
+// Prevent Vercel edge caching for HTML
+header('Cache-Control: private, no-cache, no-store');
+
 define('LARAVEL_START', microtime(true));
 
 $basePath = __DIR__;
