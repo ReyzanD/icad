@@ -37,6 +37,9 @@ if ($uri !== '/' && file_exists($file = $publicPath . $uri)) {
     $contentType = $mimeTypes[$ext] ?? 'application/octet-stream';
 
     header("Content-Type: $contentType; charset=UTF-8");
+    if (str_starts_with($uri, '/build/')) {
+        header('Cache-Control: public, max-age=31536000, immutable');
+    }
     readfile($file);
     exit;
 }
